@@ -13,31 +13,31 @@ class MessagePrinter
 	end
 
 	def help_load
-		puts "help"
+		puts "This command loads a specific data field"
 	end
 
 	def help_queue_clear
-		puts "help"
+		puts "This command empties out the queue"
 	end
 
 	def help_print_queue
-		puts "help"
-	end
-
-	def help_print_by
-		puts "help"
+		puts "This command prints the number of attendees in the queue"
 	end
 
 	def help_save_to
-		puts "help"
+		puts "This command saves the current queue at a specified location"
 	end
 
 	def help_find
-		puts "help"
+		puts "This command finds a specific attribute"
 	end
 
 	def help_print_by
-		puts "help"
+		puts "This command prints a specific attribute"
 	end
-	
+
+	def help_queue_count
+		puts "This command counts all the items in the queue"
+	end
+
 end

@@ -1,27 +1,17 @@
 require "pry"
 
 class CLI
-	attr_reader :command, :printer, :action
+	attr_reader :command, :printer
 
 	def initialize
 		@command = ""
-		@action = ""
 		@printer = MessagePrinter.new
 	end
 
 	def start
 		printer.is_initialized
 		until finished?
-			@command = gets.strip
-			# if command.count == 2
-			# 	@command = command[0]
-			# 	@action = command[1]
-			# elsif command.count == 3
-			# 	@command = command[0]
-			# 	@action = @command[1..2].join(" ")
-			# else
-			# 	@command = command.join
-			# end
+			@command = gets.chomp.downcase.split(" ")
 			process_initial_commands
 		end
 		printer.ending
@@ -59,7 +49,7 @@ class CLI
 	end
 
 	def finished?
-		command == 'q' || command == 'quit'
+		command[0] == 'q' || command[0] == 'quit'
 	end
 
 	def load?

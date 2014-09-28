@@ -1,11 +1,11 @@
 require 'csv'
 
 class Run
-	attr_reader :printer, :contents
+	attr_reader :printer, :queue
 
 	def initialize
 		@printer = MessagePrinter.new
-		@contents = CSV.open './data/event_attendees.csv', headers: true, header_converters: :symbol
+		@queue = []
 	end
 
 	def load(attribute)
