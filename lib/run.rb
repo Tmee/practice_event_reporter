@@ -8,11 +8,22 @@ class Run
 		@queue = []
 	end
 
+	def parser
+		@parser ||= AttendeeParser.new
+	end
+
+	def registry
+		@registry ||= Registry.new
+	end
+
 	def load(attribute)
+		parser.parse_file(filename)
+		registry.attendees = parser.attendees
+		printer.loaded(registry.attendees)
 	end
 
 	def help(topic)
-		case topic
+		case 
 		when topic[0] == 'load'
 			printer.help_load
 		when topic[0] == 'queue' && topic[1] == 'clear'
@@ -31,15 +42,18 @@ class Run
 	end
 
 	def queue_clear
+		@queue.clear
 	end
 
 	def find(attribute, criteria)
 	end
 
 	def queue_count
+		@queue.count
 	end
 
 	def print_queue
+		@queue.print
 	end
 
 	def print_by(attribute)

@@ -18,31 +18,32 @@ class CLI
 	end
 
 	def process_initial_commands
-		case command
+		case 
 		when load?
-			run = Run.new(printer)
-			run.load(command[1])
+			run = Run.new
+			run.load(command[1] || default_filename)
 		when help?
-			run = Run.new(printer)
+			run = Run.new
 			run.help(command[1..-1])
 		when queue_count?
-			run = Run.new(printer)
+			run = Run.new
 			run.queue_count
 		when queue_clear?
-			run = Run.new(printer)
+			run = Run.new
 			run.queue_clear
 		when queue_print?
-			run = Run.new(printer)
+			run = Run.new
 			run.queue_print
 		when print_by?
-			run = Run.new(printer)
+			run = Run.new
 			run.print_by(command[2])
 		when save_to?
-			run = Run.new(printer)
+			run = Run.new
 			run.save_to(command[2])
 		when find?
-			run = Run.new(printer)
+			run = Run.new
 			run.find(command[1], command[2])
+		when finished?
 		else
 			printer.invalid_command
 		end
@@ -83,4 +84,9 @@ class CLI
 	def find?
 		command[0] == 'find'
 	end
+
+	def default_filename
+    './data/event_attendees.csv'
+  end
+
 end
