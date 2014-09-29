@@ -21,7 +21,7 @@ class CLI
 		case 
 		when load?
 			run = Run.new
-			run.load(command[1] || default_filename)
+			run.load(command[1] ||= default_filename)
 		when help?
 			run = Run.new
 			run.help(command[1..-1])

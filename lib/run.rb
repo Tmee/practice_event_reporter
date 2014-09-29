@@ -16,7 +16,7 @@ class Run
 		@registry ||= Registry.new
 	end
 
-	def load(attribute)
+	def load(filename)
 		parser.parse_file(filename)
 		registry.attendees = parser.attendees
 		printer.loaded(registry.attendees)
