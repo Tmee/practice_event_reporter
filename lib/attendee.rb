@@ -1,3 +1,5 @@
+
+# this is to see a change
 class Attendee
 	attr_accessor :first_name, :last_name, :zipcode, :city,
 								:state, :phone, :email, :street
@@ -13,5 +15,5 @@ class Attendee
 		@street = row[:street]
 	end
 
-	
+
 end
