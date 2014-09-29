@@ -40,8 +40,8 @@ class MessagePrinter
 		puts "This command counts all the items in the queue"
 	end
 
-	def loaded(attendees)
-		puts "Loaded #{attendees}attendees"
+	def loaded_count(attendees)
+		puts "Loaded #{attendees.count} attendees"
 	end
 
 end
