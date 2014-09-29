@@ -5,7 +5,6 @@ class Run
 
 	def initialize
 		@printer = MessagePrinter.new
-		@queue = []
 	end
 
 	def parser
@@ -19,7 +18,7 @@ class Run
 	def load(filename)
 		parser.parse_file(filename)
 		registry.attendees = parser.attendees
-		printer.loaded(registry.attendees)
+		printer.loaded_count(registry.attendees)
 	end
 
 	def help(topic)
