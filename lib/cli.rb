@@ -1,11 +1,12 @@
 require "pry"
 
 class CLI
-	attr_reader :command, :printer
+	attr_reader :command, :printer, :run
 
 	def initialize
 		@command = ""
 		@printer = MessagePrinter.new
+		@run = Run.new
 	end
 
 	def start
@@ -20,29 +21,21 @@ class CLI
 	def process_initial_commands
 		case 
 		when load?
-			run = Run.new
 			run.load(command[1] ||= default_filename)
 		when help?
-			run = Run.new
 			run.help(command[1..-1])
 		when queue_count?
-			run = Run.new
 			run.queue_count
 		when queue_clear?
-			run = Run.new
 			run.queue_clear
 		when queue_print?
-			run = Run.new
 			run.queue_print
 		when print_by?
-			run = Run.new
 			run.print_by(command[2])
 		when save_to?
-			run = Run.new
 			run.save_to(command[2])
 		when find?
-			run = Run.new
-			run.find(command[1], command[2])
+			run.find(command[1], command[2..-1])
 		when finished?
 		else
 			printer.invalid_command

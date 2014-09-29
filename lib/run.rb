@@ -1,7 +1,7 @@
 require 'csv'
 
 class Run
-	attr_reader :printer, :queue
+	attr_reader :printer
 
 	def initialize
 		@printer = MessagePrinter.new
@@ -15,10 +15,14 @@ class Run
 		@registry ||= Registry.new
 	end
 
+	def queue
+		@queue ||= Queue.new
+	end
+
 	def load(filename)
 		parser.parse_file(filename)
-		registry.attendees = parser.attendees
-		printer.loaded_count(registry.attendees)
+		@loaded_attendees = parser.attendees
+		printer.loaded_count(@loaded_attendees)
 	end
 
 	def help(topic)
@@ -41,18 +45,22 @@ class Run
 	end
 
 	def queue_clear
-		@queue.clear
+		queue.clear
 	end
 
 	def find(attribute, criteria)
+		@loaded_attendees.each do |hash|
+			if hash[attribute] == criteria
+				# find_way_to_push_into_queue
+			end
 	end
 
 	def queue_count
-		@queue.count
+		puts queue.count
 	end
 
 	def print_queue
-		@queue.print
+		queue.print
 	end
 
 	def print_by(attribute)
