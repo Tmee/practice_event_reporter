@@ -50,10 +50,10 @@ class Run
 
 	def queue_save_to(file)
 		CSV.open(file, "w") do |csv|
-			#Populate headers
+			csv << ["first_Name", "last_Name", "Email_Address", "HomePhone", "Street", "City", "State", "Zipcode"]
 			queue.data.each do |attendee|
 				#Per attendee, push in array of attendee attribute - ie: attendee.first_name, attendee.last_name
-				csv << [attendee]
+				csv << [attendee.first_name, attendee.last_name, attendee.zipcode, attendee.city, attendee.state, attendee.email, attendee.phone, attendee.street  ]
 		  end
   	end
 	end
