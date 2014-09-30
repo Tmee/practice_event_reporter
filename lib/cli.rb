@@ -35,7 +35,7 @@ class CLI
 		when save_to?
 			run.save_to(command[2])
 		when find?
-			run.find(command[1], command[2..-1])
+			run.find(command[1], command[2..-1].join())
 		when finished?
 		else
 			printer.invalid_command

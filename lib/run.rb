@@ -11,10 +11,6 @@ class Run
 		@parser ||= AttendeeParser.new
 	end
 
-	def registry
-		@registry ||= Registry.new
-	end
-
 	def queue
 		@queue ||= Queue.new
 	end
@@ -49,10 +45,9 @@ class Run
 	end
 
 	def find(attribute, criteria)
-		@loaded_attendees.each do |hash|
-			if hash[attribute] == criteria
-				# find_way_to_push_into_queue
-			end
+		case attribute
+		when "first_name"
+			@loaded_attendees.select { |a| a.first_name.downcase == criteria }
 	end
 
 	def queue_count
