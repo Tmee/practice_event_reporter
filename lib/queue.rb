@@ -11,8 +11,8 @@ class Queue
     data.count
   end
 
-  def add(items)
-    @data += items
+  def add_item(item)
+    @data += item
   end
 
   def clear
