@@ -1,48 +1,21 @@
 require 'csv'
 
 class Run
-	attr_reader :printer
+	attr_reader :printer, 
+							:queue,
+							:parser,
+							:loaded_attendees
 
 	def initialize
 		@printer = MessagePrinter.new
-	end
-
-	def parser
 		@parser ||= AttendeeParser.new
-	end
-
-	def queue
-		@queue ||= Queue.new
-	end
-
-	def queue
 		@queue ||= Queue.new
 	end
 
 	def load(filename)
 		parser.parse_file(filename)
 		@loaded_attendees = parser.attendees
-		registry.attendees = parser.attendees
 		printer.loaded_count(@loaded_attendees)
-	end
-
-	def help(topic)
-		case
-		when topic[0] == 'load'
-			printer.help_load
-		when topic[0] == 'queue' && topic[1] == 'clear'
-			printer.help_queue_clear
-		when topic[0] == 'queue' && topic[1] == 'count'
-			printer.help_queue_count
-		when topic[0] == 'print' && topic[1] == 'queue'
-			printer.help_print_queue
-		when topic[0].downcase == 'find'
-			printer.help_find
-		when topic[0] == 'print' && topic[1] == 'by'
-			printer.help_print_by
-		when topic[0] == 'save' && topic[1] == 'to'
-			printer.help_save_to
-		end
 	end
 
 	def queue_clear
@@ -50,10 +23,10 @@ class Run
 	end
 
 	def find(attribute, criteria)
-		case attribute
-		when "first_name"
-			@queue.add_item(@loaded_attendees.select { |a| a.first_name.downcase == criteria })
+		selected_attendees = @loaded_attendees.select do |attendee| 
+			attendee.send(attribute.to_sym) == criteria
 		end
+		queue.add_item(selected_attendees)
 	end
 
 	def queue_count
