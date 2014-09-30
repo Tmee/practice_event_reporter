@@ -2,14 +2,13 @@ require "pry"  # => true
 # require 'colorize'
 
 class CLI
-<<<<<<< HEAD
 	attr_reader :command, :printer, :run
 
 	def initialize
 		@command = ""
 		@printer = MessagePrinter.new
 		@run = Run.new
-=======
+
 	attr_reader :command,             # => :command
 							:printer,                   # => :printer
 							:run,                       # => :run
@@ -22,7 +21,7 @@ class CLI
 		@criteria  = ""
 		@printer   = MessagePrinter.new
 		@run       = Run.new
->>>>>>> 7e1d4f9ef7c4dddb28ec1913e8694d828d7baf0c
+
 	end
 
 	def start
@@ -40,7 +39,7 @@ class CLI
 	end
 
 	def process_initial_commands
-<<<<<<< HEAD
+
 		case 
 		when load?
 			run.load(command[1] ||= default_filename)
@@ -59,7 +58,7 @@ class CLI
 		when find?
 			run.find(command[1], command[2..-1].join())
 		when finished?
-=======
+
 		case @command[0]
 		when 'load'  then run.load(attribute ||= default_filename)
 		when 'help'  then help(@attribute, @criteria)
@@ -67,7 +66,7 @@ class CLI
 		when 'find'  then run.find(command[1], command[2..-1])
 		when 'q'     then finished?
 		when 'quit'  then finished?
->>>>>>> 7e1d4f9ef7c4dddb28ec1913e8694d828d7baf0c
+
 		else
 			printer.invalid_command
 		end
