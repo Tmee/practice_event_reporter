@@ -34,7 +34,7 @@ class CLI
 		case @command[0]
 		when 'load'  then run.load(attribute ||= default_filename)
 		when 'help'  then help(@attribute, @criteria)
-		when 'queue' then run.queue
+		when 'queue' then run.queue_commands(@attribute, @criteria)
 		when 'find'  then run.find(@attribute, criteria)
 		when 'q'     then finished?
 		when 'quit'  then finished?

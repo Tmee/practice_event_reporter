@@ -8,7 +8,7 @@ class Queue
   end
 
   def count
-    data.count
+    puts data.count
   end
 
   def add_item(item)

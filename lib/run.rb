@@ -18,10 +18,6 @@ class Run
 		printer.loaded_count(@loaded_attendees)
 	end
 
-	def queue_clear
-		queue.clear
-	end
-
 	def find(attribute, criteria)
 		selected_attendees = @loaded_attendees.select do |attendee| 
 			attendee.send(attribute.to_sym) == criteria
@@ -29,17 +25,29 @@ class Run
 		queue.add_item(selected_attendees)
 	end
 
+	def queue_commands(attribute,criteria)
+		case attribute
+		when 'clear'    then @queue = []
+		when 'count'    then queue_count
+		when 'print'    then queue_print
+		when 'save to'  then queue_save_to(criteria)
+		when 'print by' then queue_print_by(criteria)
+		end
+	end
+
 	def queue_count
 		puts queue.count
 	end
 
-	def print_queue
-		queue.print
+	def queue_print
+		puts queue
 	end
 
-	def print_by(attribute)
+	def queue_print_by(attribute)
+
 	end
 
-	def save_to(file)
+	def queue_save_to(file)
+
 	end
 end
