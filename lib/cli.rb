@@ -38,6 +38,7 @@ class CLI
 		when 'find'  then run.find(@attribute, criteria)
 		when 'q'     then finished?
 		when 'quit'  then finished?
+		when 'save'	 then run.queue_save_to("data/new_file.csv")
 		else
 			printer.invalid_command
 		end

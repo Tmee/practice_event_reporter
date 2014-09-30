@@ -19,6 +19,10 @@ class Queue
     @data.clear
   end
 
+  def print
+    puts "#{@data}"
+  end
+
   def replace(data)
     clear && add(data)
   end

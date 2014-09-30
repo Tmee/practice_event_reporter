@@ -13,6 +13,11 @@ class AttendeeParser
 		@attendees.count
 	end
 
+	def parse_queue(queue)
+		@attendees = queue.collect { |line| build_attendee(line) }
+		@attendees.count
+	end
+
 	def build_attendee(row)
 		Attendee.new(:first_name => row[:first_name],
 								 :last_name => row[:last_name],

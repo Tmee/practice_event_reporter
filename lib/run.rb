@@ -1,5 +1,6 @@
 require 'csv'
 
+
 class Run
 	attr_reader :printer, 
 							:queue,
@@ -36,11 +37,11 @@ class Run
 	end
 
 	def queue_count
-		puts queue.count
+		queue.count
 	end
 
 	def queue_print
-		puts queue
+		queue.print
 	end
 
 	def queue_print_by(attribute)
@@ -48,6 +49,12 @@ class Run
 	end
 
 	def queue_save_to(file)
-
+		CSV.open(file, "w") do |csv|
+			#Populate headers
+			queue.data.each do |attendee|
+				#Per attendee, push in array of attendee attribute - ie: attendee.first_name, attendee.last_name
+				csv << [attendee]
+		  end
+  	end
 	end
 end
