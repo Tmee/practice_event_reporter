@@ -47,7 +47,8 @@ class Run
 	def find(attribute, criteria)
 		case attribute
 		when "first_name"
-			@loaded_attendees.select { |a| a.first_name.downcase == criteria }
+			@queue.add_item(@loaded_attendees.select { |a| a.first_name.downcase == criteria })
+		end
 	end
 
 	def queue_count
