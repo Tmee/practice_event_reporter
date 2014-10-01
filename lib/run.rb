@@ -7,7 +7,8 @@ class Run
 							:queue,
 							:parser,
 							:loaded_attendees,
-							:criteria
+							:criteria,
+							:selected_attendees
 
 	def initialize
 		@printer            = MessagePrinter.new

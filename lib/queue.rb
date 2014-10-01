@@ -1,4 +1,5 @@
 require "csv"  # => true
+require "pry"
 
 class Queue
   attr_reader :data  # => nil
@@ -40,8 +41,8 @@ class Queue
     if data == []
       puts "you need to search for something first, the queue is empty"
     else
-      @data.sort_by! {|entry| entry.send(criteria.to_sym)}
-      print(@data)
+      data.sort_by! {|entry| entry.send(criteria.to_sym)}
+      print
     end
   end
 
