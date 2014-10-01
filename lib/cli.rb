@@ -30,14 +30,20 @@ class CLI
 	def split_command_into_parts
 		@command       = gets.strip.downcase.split
 		@first_command = command[0]
-		if command.length == 4
+		if first_command == "find"
+			@attribute = command[1]
+			@criteria = command[2..-1].join(' ')
+		elsif command.length == 4
  		  @attribute = command[1..2].join('')
 			@criteria  = command[3]
  		elsif command.length == 3
  			@attribute = command[1]
 			@criteria  = command[2..-1].join(' ')
-		else command.length <=2
+		elsif command.length <=2
 			@attribute = command[1]
+		else
+			@attribute = command[1]
+			@criteria = command[2..-1].join(' ')
 		end
 	end
 
