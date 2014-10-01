@@ -9,10 +9,11 @@ class Clean
 	end
 
 	def clean_phone(phone_number)
-		if phone_number.nil? || phone_number.length != 10
+		number = phone_number.to_s.scan(/\d/)
+		if number.nil? || number.length != 10
 			"000-000-0000"
 		else
-		"(#{phone_number[0..2]})" + " #{phone_number[3..5]} " + "- #{phone_number[6..9]}"
+		"(#{number[0..2].join})" + " #{number[3..5].join} " + "- #{number[6..9].join}"
 		end
 	end
 

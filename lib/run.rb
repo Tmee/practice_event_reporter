@@ -7,14 +7,12 @@ class Run
 							:queue,
 							:parser,
 							:loaded_attendees,
-							:criteria,
-							:selected_attendees
+							:criteria
 
 	def initialize
 		@printer            = MessagePrinter.new
 		@parser           ||= AttendeeParser.new
 		@queue            ||= Queue.new
-		@selected_attendees = []
 	end
 
 	def load(filename)
