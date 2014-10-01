@@ -1,3 +1,3 @@
 source :rubygems
 
-gem ''
+gem 'minitest', '~> 5.2'

@@ -5,27 +5,32 @@
 
 # class CleanTest < Minitest::Test
 # 	def test_it_cleans_first_name
-# 		first_name = Clean.new
-# 		first_name = "Billy"
-# 		clean_first_name(first_name)
-# 		assert "billy"
+# 		Clean.clean_first_name("Billy")
+# 		assert_equal "billy"
 # 	end
 
 # 	def test_it_cleans_last_name
+# 		Clean.clean_last_name("Smith")
+# 		assert_equal "smith"
 # 	end
 
 # 	def test_it_cleans_phone
-# 	end
-
-# 	def test_it_cleans_email
+# 		Clean.clean_phone("876-3913")
+# 		assert_equal "000-000-0000"
 # 	end
 
 # 	def test_it_cleans_zipcode
+# 		Clean.clean_zipcode("896")
+# 		assert_equal "00896"
 # 	end
 
 # 	def test_it_cleans_city
+# 		Clean.clean_city("philAdelphia")
+# 		assert_equal "philadelphia"
 # 	end
 
 # 	def test_it_cleans_state
+# 		Clean.clean_state("PA")
+# 		assert_equal "pa"
 # 	end
 # end
