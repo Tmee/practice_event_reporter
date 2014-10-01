@@ -12,11 +12,6 @@ class Clean
 		phone_number.to_s.scan(/\d/).join.rjust(10, "0")[0..9] if phone_number
 	end
 
-	def clean_city(city)
-		# city.to_s.strip.split.map(&:downcase)*' '
-		city.downcase if city
-	end
-
 	def clean_state(state)
 		state.to_s.strip.upcase[0..1] if state
 	end

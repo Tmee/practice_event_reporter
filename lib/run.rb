@@ -41,7 +41,11 @@ class Run
 	end
 
 	def queue_print
-		queue.print
+		output = []
+		queue.data.each do |attendee|
+			output << {:first_name => attendee.first_name, :last_name => attendee.last_name, :zipcode => attendee.zipcode, :city => attendee.city, :state => attendee.state, :homephone => attendee.phone, :street => attendee.street}
+		end
+		puts "#{output}"
 	end
 
 	def queue_print_by(attribute)
@@ -52,8 +56,7 @@ class Run
 		CSV.open(file, "w") do |csv|
 			csv << ["first_Name", "last_Name", "Email_Address", "HomePhone", "Street", "City", "State", "Zipcode"]
 			queue.data.each do |attendee|
-				#Per attendee, push in array of attendee attribute - ie: attendee.first_name, attendee.last_name
-				csv << [attendee.first_name, attendee.last_name, attendee.zipcode, attendee.city, attendee.state, attendee.email, attendee.phone, attendee.street  ]
+				csv << [attendee.first_name, attendee.last_name, attendee.zipcode, attendee.city, attendee.state, attendee.email, attendee.phone, attendee.street]
 		  end
   	end
 	end
