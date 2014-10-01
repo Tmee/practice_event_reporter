@@ -28,13 +28,13 @@ class Queue
   end
 
   def print_by(attribute)
-
+    QueueTablePrinter.new(data).print
   end
 
-  def queue_save_to(file)
+  def save_to(file)
     CSV.open(file, "w") do |csv|
       csv << ["first_Name", "last_Name", "Email_Address", "HomePhone", "Street", "City", "State", "Zipcode"]
-      data.each do |attendee|
+      @data.each do |attendee|
         csv << [attendee.first_name, attendee.last_name, attendee.zipcode, attendee.city, attendee.state, attendee.email, attendee.phone, attendee.street]
       end
     end

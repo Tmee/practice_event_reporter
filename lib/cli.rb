@@ -32,7 +32,11 @@ class CLI
 		@first_command = command[0]
  		@attribute     = command[1]
  		if command.length != 1
-			@criteria = command[2..-1].join(' ')
+ 			if command[2] == 'to'
+ 				@criteria = command[3..-1].join(' ')
+ 			else
+				@criteria = command[2..-1].join(' ')
+			end
 		end
 	end
 

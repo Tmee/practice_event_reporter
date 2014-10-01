@@ -32,7 +32,7 @@ class Run
 		when 'clear'    then @queue = []
 		when 'count'    then queue.count
 		when 'print'    then queue.print(@loaded_attendees)
-		when 'save to'  then queue.save_to(criteria)
+		when 'save'     then queue.save_to(criteria)
 		when 'print by' then queue.print_by(criteria)
 		end
 	end
