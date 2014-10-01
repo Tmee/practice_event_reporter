@@ -5,7 +5,7 @@ class Attendee
 								:zipcode, :city,
 								:state, :phone,
 								:email, :street,
-								:cleaner
+								:cleaner, :homephone
 
 	def initialize(row)
 		@cleaner    = Clean.new
@@ -17,6 +17,7 @@ class Attendee
 		@phone      = cleaner.clean_phone(row[:phone])
 		@email      = row[:email_address]
 		@street     = row[:street]
+		@homephone  = cleaner.clean_phone(row[:homephone])
 	end
 
 end

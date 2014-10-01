@@ -28,36 +28,13 @@ class Run
 
 	def queue_commands(attribute,criteria)
 		case attribute
+		when nil        then puts "Error\nTo see a list of commands type 'help'".light_red
 		when 'clear'    then @queue = []
-		when 'count'    then queue_count
-		when 'print'    then queue_print
-		when 'save to'  then queue_save_to(criteria)
-		when 'print by' then queue_print_by(criteria)
+		when 'count'    then queue.count
+		when 'print'    then queue.print(@loaded_attendees)
+		when 'save to'  then queue.save_to(criteria)
+		when 'print by' then queue.print_by(criteria)
 		end
 	end
 
-	def queue_count
-		queue.count
-	end
-
-	def queue_print
-		output = []
-		queue.data.each do |attendee|
-			output << {:first_name => attendee.first_name, :last_name => attendee.last_name, :zipcode => attendee.zipcode, :city => attendee.city, :state => attendee.state, :homephone => attendee.phone, :street => attendee.street}
-		end
-		puts "#{output}"
-	end
-
-	def queue_print_by(attribute)
-
-	end
-
-	def queue_save_to(file)
-		CSV.open(file, "w") do |csv|
-			csv << ["first_Name", "last_Name", "Email_Address", "HomePhone", "Street", "City", "State", "Zipcode"]
-			queue.data.each do |attendee|
-				csv << [attendee.first_name, attendee.last_name, attendee.zipcode, attendee.city, attendee.state, attendee.email, attendee.phone, attendee.street]
-		  end
-  	end
-	end
 end

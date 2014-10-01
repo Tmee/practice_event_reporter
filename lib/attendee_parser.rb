@@ -26,7 +26,8 @@ class AttendeeParser
 								 :street => row[:street],
 								 :city => row[:city],
 								 :state => row[:state],
-								 :zipcode => row[:zipcode])
+								 :zipcode => row[:zipcode],
+								 :homephone => row[:homephone])
 	end
 
 end

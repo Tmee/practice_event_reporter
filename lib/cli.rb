@@ -1,44 +1,49 @@
 require "pry"  # => true
-# require 'colorize'
 
 class CLI
-	attr_reader :command,             # => :command
-							:printer,                   # => :printer
-							:run,                       # => :run
-							:attribute,                 # => :attribute
-							:criteria                   # => nil
+	attr_reader :command,  # => :command
+							:printer,        # => :printer
+							:run,            # => :run
+							:attribute,      # => :attribute
+							:criteria,       # => :criteria
+							:first_command   # => nil
 
 	def initialize
-		@command   = ""
-		@attribute = ""
-		@criteria  = ""
-		@printer   = MessagePrinter.new
-		@run       = Run.new
+		@command       = ""
+		@first_command = ""
+		@attribute     = ""
+		@criteria      = ""
+		@printer       = MessagePrinter.new
+		@run           = Run.new
 	end
 
 	def start
 		printer.is_initialized
 		until finished?
 			printer.get_command
-			@command   = gets.strip.downcase.split
-			@attribute = command[1]
-			if command.length != 1
-				@criteria  = command[2..-1].join(' ')
-		 	end
+			split_command_into_parts
 		 	process_initial_commands
 		end
 		printer.ending
 	end
 
+	def split_command_into_parts
+		@command = gets.strip.downcase.split
+		@first_command = command[0]
+ 		@attribute     = command[1]
+ 		if command.length != 1
+			@criteria = command[2..-1].join(' ')
+		end
+	end
+
 	def process_initial_commands
-		case @command[0]
+		case @first_command
 		when 'load'  then run.load(attribute ||= default_filename)
 		when 'help'  then help(@attribute, @criteria)
 		when 'queue' then run.queue_commands(@attribute, @criteria)
-		when 'find'  then run.find(@attribute, criteria)
+		when 'find'  then run.find(@attribute, @criteria)
 		when 'q'     then finished?
 		when 'quit'  then finished?
-		when 'save'	 then run.queue_save_to(@criteria)
 		else
 			printer.invalid_command
 		end
@@ -67,7 +72,7 @@ class CLI
 
 	def finished?
 		command.length == 1 &&
-		command[0] == 'q' || command[0] == 'quit'
+		first_command == 'q' || first_command == 'quit'
 	end
 
 	def default_filename
