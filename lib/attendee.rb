@@ -1,11 +1,12 @@
 
 # this is to see a change
 class Attendee
-	attr_accessor :first_name, :last_name,            
+	attr_reader :first_name, :last_name,            
 								:zipcode, :city,
 								:state, :phone,
 								:email, :street,
-								:cleaner, :homephone
+								:cleaner, :homephone, :id,
+								:regdate
 
 	def initialize(row)
 		@cleaner    = Clean.new
@@ -18,6 +19,8 @@ class Attendee
 		@email      = row[:email_address]
 		@street     = row[:street]
 		@homephone  = cleaner.clean_phone(row[:homephone])
+		@id   			= cleaner.clean_id(row[:id])
+		@regdate   	= cleaner.clean_regdate(row[:id])
 	end
 
 end
