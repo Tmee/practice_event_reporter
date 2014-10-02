@@ -37,10 +37,6 @@ class Run
 		end
 	end
 
-	# def headers
-	# 	@headers = ['id','first_name','last_name','zipcode','city','state','homephone', 'email_adress', 'street']
-	# end
-
 	def queue_commands(attribute,criteria)
 		case attribute
 		when nil        then puts "Error\nTo see a list of commands type 'help'".light_red
