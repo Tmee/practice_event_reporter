@@ -10,9 +10,10 @@ class Run
 							:criteria
 
 	def initialize
-		@printer            = MessagePrinter.new
-		@parser           ||= AttendeeParser.new
-		@queue            ||= Queue.new
+		@printer  = MessagePrinter.new
+		@parser ||= AttendeeParser.new
+		@queue  ||= Queue.new
+		@headers  = ['id','first_name','last_name','zipcode','city','state','homephone', 'email_adress', 'street']
 	end
 
 	def load(filename)
@@ -24,16 +25,21 @@ class Run
 	def find(attribute = nil, criteria)
 		if attribute.nil?
 			printer.invalid_command
-		elsif @loaded_attendees.nil? == true
+		elsif @loaded_attendees.nil?
 			printer.load_file
+		elsif @headers.include?(attribute) == false
+			printer.invalid_command
 		else
 			@selected_attendees = @loaded_attendees.select do |attendee|
 			attendee.send(attribute.to_sym) == criteria
 			end
 		queue.add_item(@selected_attendees)
-
 		end
 	end
+
+	# def headers
+	# 	@headers = ['id','first_name','last_name','zipcode','city','state','homephone', 'email_adress', 'street']
+	# end
 
 	def queue_commands(attribute,criteria)
 		case attribute
