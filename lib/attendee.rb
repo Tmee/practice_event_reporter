@@ -1,4 +1,4 @@
-
+require_relative 'clean'
 # this is to see a change
 class Attendee
 	attr_reader :first_name, :last_name,            
