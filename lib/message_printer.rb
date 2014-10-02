@@ -49,7 +49,7 @@ class MessagePrinter
 		puts "Command Information:   Load\n\n".light_green
 		puts "This command allows the user to load any .csv file into the Event Reporter.\n".light_green
 		print "Enter Command:   ".light_green
-		puts "load <path/to/filename>\n\n".yellow
+		puts "load <filename>\n\n".yellow
 	end
 
 	def help_find_message

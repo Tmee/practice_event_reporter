@@ -36,40 +36,22 @@ class CLI
 			@command << nil<< nil
 			@attribute = command[1]
 			@criteria = command[2..-1].join(' ').delete("  ")
-		elsif command.length == 4
+		elsif command.length == 4 && first_command != 'help'
  		  @attribute = command[1..2].join('')
 			@criteria  = command[3]
+		elsif command.length == 4 && first_command == 'help'
+			@attribute = command[1]
+			@criteria = command[2..-1].join(' ')
  		elsif command.length == 3
  			@attribute = command[1]
 			@criteria  = command[2]
-		elsif command.length <=2
+		elsif command.length == 2
 			@attribute = command[1]
 		else
 			@attribute = command[1]
-			@criteria = command[2..-1].join(' ')
+			@criteria = nil
 		end
 	end
-	# def split_command_into_parts
-	# 	printer.get_command
-	# 	@command       = gets.strip.downcase.split
-	# 	@first_command = command[0]
-	# 	if first_command == 'find'
-	# 		find_command_valid
-	# 	elsif first_command == 'help'
-	# 		valid_help_command
-	# 	elsif command.length == 4
- # 		  @attribute = command[1..2].join('')
-	# 		@criteria  = command[3..-1].join(' ')
- # 		elsif command.length == 3
- # 			@attribute = command[1]
-	# 		@criteria  = command[2..-1].join(' ')
-	# 	elsif command.length <=2
-	# 		@attribute = command[1]
-	# 	else
-	# 		@attribute = command[1]
-	# 		@criteria  = command[2..-1].join(' ')
-	# 	end
-	# end
 
 	def process_initial_command
 		case @first_command
@@ -86,13 +68,13 @@ class CLI
 
 	def help(attribute = nil, criteria = nil)
 		# binding.pry
-		case @attribute
-		when nil || ""    then printer.list_help_commands
+		case attribute
+		when nil    then printer.list_help_commands
 		when 'load'  then printer.help_load_message
 		when 'find'  then printer.help_find_message
-		when 'queue' then queue_help(@criteria)
+		when 'queue' then queue_help(criteria)
 		else
-			# puts "Sorry, not a command!!\nType 'help' for a list of all commands".light_red
+			puts "Sorry, not a command!!\nType 'help' for a list of all commands".light_red
 		end
 	end
 
@@ -101,8 +83,8 @@ class CLI
 		when 'count'    then printer.queue_count_help
 		when 'clear'    then printer.queue_clear_help
 		when 'print'    then printer.queue_print_help
-		when 'save to'  then printer.queue_save_to_help
-		when 'print by' then printer.queue_print_by_help
+		when 'save to'   then printer.queue_save_to_help
+		when 'print by'  then printer.queue_print_by_help
 		end
 	end
 
