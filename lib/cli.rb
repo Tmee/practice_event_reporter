@@ -55,7 +55,7 @@ class CLI
 
 	def process_initial_command
 		case @first_command
-		when 'load'  then run.load(attribute ||= default_filename)
+		when 'load'  then run.load(@attribute ||= default_filename)
 		when 'help'  then help(@attribute, @criteria)
 		when 'queue' then run.queue_commands(@attribute, @criteria)
 		when 'find'  then run.find(@attribute, @criteria)

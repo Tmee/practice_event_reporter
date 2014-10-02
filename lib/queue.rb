@@ -54,7 +54,7 @@ class Queue
     CSV.open(file, "w") do |csv|
       csv << ["first_Name", "last_Name", "Email_Address", "HomePhone", "Street", "City", "State", "Zipcode"]
       data.each do |attendee|
-        csv << [attendee.first_name, attendee.last_name, attendee.zipcode, attendee.city, attendee.state, attendee.email, attendee.phone, attendee.street]
+        csv << [attendee.first_name, attendee.last_name, attendee.zipcode, attendee.city, attendee.state, attendee.email, attendee.homephone, attendee.street]
         end
       end
     end
