@@ -85,6 +85,8 @@ class CLI
 		when 'print'    then printer.queue_print_help
 		when 'save to'   then printer.queue_save_to_help
 		when 'print by'  then printer.queue_print_by_help
+		else
+			printer.invalid_command
 		end
 	end
 
