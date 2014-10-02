@@ -36,5 +36,9 @@ class Clean
   def clean_regdate(regdate)
     regdate.to_s
   end
+
+  def clean_street(street)
+  	street.to_s.strip.downcase if street
+  end
 	
 end

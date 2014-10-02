@@ -4,7 +4,7 @@ class Attendee
 	attr_reader :first_name, :last_name,            
 							:zipcode, :city,
 							:state, :phone,
-							:email, :street,
+							:email_address, :street,
 							:cleaner, :homephone, 
 							:id, :regdate
 
@@ -18,7 +18,7 @@ class Attendee
 		@city       = cleaner.clean_city(row[:city])
 		@state      = cleaner.clean_state(row[:state])
 		@phone      = cleaner.clean_phone(row[:phone])
-		@email      = row[:email_address]
+		@email_address      = row[:email_address]
 		@street     = row[:street]
 		@homephone  = cleaner.clean_phone(row[:homephone])
 	end
