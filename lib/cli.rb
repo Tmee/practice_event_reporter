@@ -1,92 +1,97 @@
-require "pry"
+require "pry"  # => true
 
 class CLI
-	attr_reader :command, :printer
+	attr_reader :command,  # => :command
+							:printer,        # => :printer
+							:run,            # => :run
+							:attribute,      # => :attribute
+							:criteria,       # => :criteria
+							:first_command   # => nil
 
 	def initialize
-		@command = ""
-		@printer = MessagePrinter.new
+		@command       = ""
+		@first_command = ""
+		@attribute     = ""
+		@criteria      = ""
+		@printer       = MessagePrinter.new
+		@run           = Run.new
 	end
 
 	def start
 		printer.is_initialized
 		until finished?
-			@command = gets.chomp.downcase.split(" ")
-			process_initial_commands
+			printer.get_command
+			split_command_into_parts
+		 	process_initial_commands
 		end
 		printer.ending
 	end
 
+	def split_command_into_parts
+		@command       = gets.strip.downcase.split
+		@first_command = command[0]
+		if first_command == "find"
+			@attribute = command[1]
+			@criteria = command[2..-1].join(' ')
+		elsif command.length == 4
+ 		  @attribute = command[1..2].join('')
+			@criteria  = command[3]
+ 		elsif command.length == 3
+ 			@attribute = command[1]
+			@criteria  = command[2..-1].join(' ')
+		elsif command.length <=2
+			@attribute = command[1]
+		else
+			@attribute = command[1]
+			@criteria = command[2..-1].join(' ')
+		end
+	end
+
 	def process_initial_commands
-		case 
-		when load?
-			run = Run.new
-			run.load(command[1] ||= default_filename)
-		when help?
-			run = Run.new
-			run.help(command[1..-1])
-		when queue_count?
-			run = Run.new
-			run.queue_count
-		when queue_clear?
-			run = Run.new
-			run.queue_clear
-		when queue_print?
-			run = Run.new
-			run.queue_print
-		when print_by?
-			run = Run.new
-			run.print_by(command[2])
-		when save_to?
-			run = Run.new
-			run.save_to(command[2])
-		when find?
-			run = Run.new
-			run.find(command[1], command[2])
-		when finished?
+		case @first_command
+		when 'load'  
+			if attribute == nil
+				run.load(default_filename)
+			else
+				run.load(attribute)
+			end
+		when 'help'  then help(@attribute, @criteria)
+		when 'queue' then run.queue_commands(@attribute, @criteria)
+		when 'find'  then run.find(@attribute, @criteria)
+		when 'q'     then finished?
+		when 'quit'  then finished?
 		else
 			printer.invalid_command
 		end
 	end
 
+	def help(attribute, criteria)
+		case attribute
+		when nil     then printer.list_help_commands
+		when 'load'  then printer.help_load_message
+		when 'find'  then printer.help_find_message
+		when 'queue' then queue_help(@criteria)
+		else
+			puts "Sorry, not a command!!\nType 'help' for a list of all commands".light_red
+		end
+	end
+
+	def queue_help(criteria)
+		case criteria
+		when 'count'    then printer.queue_count_help
+		when 'clear'    then printer.queue_clear_help
+		when 'print'    then printer.queue_print_help
+		when 'save to'  then printer.queue_save_to_help
+		when 'print by' then printer.queue_print_by_help
+		end
+	end
+
 	def finished?
-		command[0] == 'q' || command[0] == 'quit'
-	end
-
-	def load?
-		command[0] == 'load'
-	end
-
-	def help?
-		command[0] == 'help'
-	end
-
-	def queue_count?
-		command[0] == 'queue' && command[1] == 'count'
-	end
-
-	def queue_clear?
-		command[0] == 'queue' && command[1] == 'clear'
-	end
-
-	def queue_print?
-		command[0] == 'queue' && command[1] == 'print'
-	end
-
-	def print_by?
-		command[0] == 'print' && command[1] == 'by'
-	end
-
-	def save_to?
-		command[0] == 'save' && command[1] == 'to'
-	end
-
-	def find?
-		command[0] == 'find'
+		command.length == 1 &&
+		first_command == 'q' || first_command == 'quit'
 	end
 
 	def default_filename
     './data/event_attendees.csv'
   end
-
 end
