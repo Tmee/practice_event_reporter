@@ -18,7 +18,7 @@ class Clean
 	end
 
 	def clean_state(state)
-		state.to_s.strip.upcase[0..1] if state
+		state.to_s.strip.downcase[0..1] if state
 	end
 
 	def clean_zipcode(zipcode)
@@ -32,5 +32,9 @@ class Clean
   def clean_regdate(regdate)
     regdate.to_s
   end
-	
+
+  def clean_city(city)
+  	city.to_s.downcase
+  end
+
 end

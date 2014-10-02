@@ -11,29 +11,29 @@ attr_reader :data
   def print
     rows = []
     @data.each do |a|
-    rows << ["#{a.id}",
-             "#{a.regdate}",
-             "#{a.last_name.capitalize}",
-             "#{a.first_name.capitalize}",
-             "#{a.email}",
-             "#{a.zipcode}",
-             "#{a.city.capitalize}",
-             "#{a.state.upcase}",
-             "#{a.street}",
-             "#{a.homephone}"]
+    rows << ["#{a.id}".cyan,
+             "#{a.regdate}".cyan,
+             "#{a.last_name.capitalize}".cyan,
+             "#{a.first_name.capitalize}".cyan,
+             "#{a.email}".cyan,
+             "#{a.zipcode}".cyan,
+             "#{a.city.capitalize}".cyan,
+             "#{a.state.upcase}".cyan,
+             "#{a.street}".cyan,
+             "#{a.homephone}".cyan]
     end
-    # binding.pry
-    table = Terminal::Table.new :title => "Queue", :headings => ['ID'.bold,
-                                              'REGDATE'.bold,
-                                              'LAST NAME'.bold,
-                                              'FIRST NAME'.bold,
-                                              'EMAIL'.bold,
-                                              'ZIPCODE'.bold,
-                                              'CITY'.bold,
-                                              'STATE'.bold,
-                                              'ADDRESS'.bold,
-                                              'PHONE'.bold],
-                                              :rows => rows
+
+    table = Terminal::Table.new :title => "Queue".blink, :headings => ['ID'.green.bold,
+                                                                      'REGDATE'.green.bold,
+                                                                      'LAST NAME'.green.bold,
+                                                                      'FIRST NAME'.green.bold,
+                                                                      'EMAIL'.green.bold,
+                                                                      'ZIPCODE'.green.bold,
+                                                                      'CITY'.green.bold,
+                                                                      'STATE'.green.bold,
+                                                                      'ADDRESS'.green.bold,
+                                                                      'PHONE'.green.bold],
+                                                                      :rows => rows
     puts table
   end
 

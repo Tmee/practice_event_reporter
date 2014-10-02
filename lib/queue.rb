@@ -2,17 +2,18 @@ require "csv"  # => true
 require "pry"
 
 class Queue
-  attr_reader :data  # => nil
+  attr_reader :data, :printer  # => nil
 
   def initialize
     @data = []
+    @printer = MessagePrinter.new
   end
 
   def count
     if data == []
-      puts "need to search for something first"
+      printer.queue_count_error(data.count)
     else
-      puts "Queue currently has #{@data.count} attendees."
+      printer.queue_count(data.count)
     end
   end
 
@@ -22,7 +23,7 @@ class Queue
 
   def clear
     @data = []
-    puts "Queue currently has #{@data.count} attendees."
+    printer.queue_clear(data.count)
   end
 
   def replace(data)
@@ -31,7 +32,7 @@ class Queue
 
   def print
     if data == []
-      puts "you need to search first, queue is empty!"
+      printer.queue_count_error(data.count)
     else
       QueueTablePrinter.new(data).print
     end
@@ -39,7 +40,7 @@ class Queue
 
   def print_by(criteria)
     if data == []
-      puts "you need to search for something first, the queue is empty"
+      printer.queue_count_error(data.count)
     else
       data.sort_by! {|entry| entry.send(criteria.to_sym)}
       print
@@ -47,10 +48,14 @@ class Queue
   end
 
   def save_to(file)
+    if data == []
+     printer.queue_count_error(data.count)
+    else
     CSV.open(file, "w") do |csv|
       csv << ["first_Name", "last_Name", "Email_Address", "HomePhone", "Street", "City", "State", "Zipcode"]
       data.each do |attendee|
         csv << [attendee.first_name, attendee.last_name, attendee.zipcode, attendee.city, attendee.state, attendee.email, attendee.phone, attendee.street]
+        end
       end
     end
   end

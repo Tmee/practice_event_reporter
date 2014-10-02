@@ -13,18 +13,20 @@ class MessagePrinter
 	end
 
 	def ending
-		puts [
-			"  _____                 _     ____                       _
- | ____|_   _____ _ __ | |_  |  _ \ ___ _ __   ___  _ __| |_ ___ _ __
- |  _| \ \ / / _ \ '_ \| __| | |_) / _ \ '_ \ / _ \| '__| __/ _ \ '__|
- | |___ \ V /  __/ | | | |_  |  _ <  __/ |_) | (_) | |  | ||  __/ |
- |_____| \_/ \___|_| |_|\__| |_| \_\___| .__/ \___/|_|   \__\___|_|
-              |  ___(_)_ __ (_)___| |__|_|___  __| |
-              | |_  | | '_ \| / __| '_ \ / _ \/ _` |
-              |  _| | | | | | \__ \ | | |  __/ (_| |
-              |_|   |_|_| |_|_|___/_| |_|\___|\__,_|
-                                                                       ".light_red
-		]
+		clear_screen
+		puts ["███████╗██╗   ██╗███████╗███╗   ██╗████████╗    ██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗███████╗██████╗
+██╔════╝██║   ██║██╔════╝████╗  ██║╚══██╔══╝    ██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗
+█████╗  ██║   ██║█████╗  ██╔██╗ ██║   ██║       ██████╔╝█████╗  ██████╔╝██║   ██║██████╔╝   ██║   █████╗  ██████╔╝
+██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║       ██╔══██╗██╔══╝  ██╔═══╝ ██║   ██║██╔══██╗   ██║   ██╔══╝  ██╔══██╗
+███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║       ██║  ██║███████╗██║     ╚██████╔╝██║  ██║   ██║   ███████╗██║  ██║
+╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝       ╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝".light_red]
+		puts ["████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗ █████╗ ████████╗███████╗██████╗
+╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗╚══██╔══╝██╔════╝██╔══██╗
+   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║███████║   ██║   █████╗  ██║  ██║
+   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██╔══██║   ██║   ██╔══╝  ██║  ██║
+   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██║  ██║   ██║   ███████╗██████╔╝
+   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═════╝
+                                                                                  ".light_red]
 	end
 
 	def invalid_command
@@ -105,6 +107,22 @@ class MessagePrinter
 
 	def loaded_count(attendees)
 		puts "Loaded #{attendees.count} attendees".green
+	end
+
+	def queue_count_error(count)
+		 puts "Queue is empty, count is #{count}. Please, search first to add data into your queue.\n".light_red + ":: Type".light_green.rjust(39) + " 'help' ".light_red.rjust(22) + "for a list of commands ::".light_green.rjust(38)
+	end
+
+	def load_file
+		puts "No file loaded.  Please load a file into Event Reporter or type 'load' to use the default file\n".light_red + ":: Type".light_green.rjust(39) + " 'help' ".light_red.rjust(22) + "for a list of commands ::".light_green.rjust(38)
+	end
+
+	def queue_clear(count)
+		puts "Queue currently has been cleared.\n".light_red + "#{count} attendees.".light_red.rjust(36)
+	end
+
+	def queue_count(count)
+		puts "Your queue currently has #{count} attendees.".light_red
 	end
 
 	def clear_screen

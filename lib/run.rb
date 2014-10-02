@@ -1,4 +1,4 @@
-require 'csv'
+
 require 'pry'
 
 
@@ -21,11 +21,18 @@ class Run
 		printer.loaded_count(@loaded_attendees)
 	end
 
-	def find(attribute, criteria)
-		@selected_attendees = @loaded_attendees.select do |attendee|
+	def find(attribute = nil, criteria)
+		if attribute.nil?
+			printer.invalid_command
+		elsif @loaded_attendees.nil? == true
+			printer.load_file
+		else
+			@selected_attendees = @loaded_attendees.select do |attendee|
 			attendee.send(attribute.to_sym) == criteria
-		end
+			end
 		queue.add_item(@selected_attendees)
+
+		end
 	end
 
 	def queue_commands(attribute,criteria)
@@ -34,9 +41,10 @@ class Run
 		when 'clear'    then queue.clear
 		when 'count'    then queue.count
 		when 'print'    then queue.print
-		when 'saveto'  then queue.save_to(criteria)
-		when 'printby' then queue.print_by(criteria)
+		when 'saveto'   then queue.save_to(criteria)
+		when 'printby'  then queue.print_by(criteria)
+		else
+			printer.invalid_command
 		end
 	end
-
 end
